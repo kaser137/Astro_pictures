@@ -5,12 +5,13 @@ There are three main functions:
 fetch_spacex_last_launch(id_launch='latest'), this one gets pictures from launch of Space X. Its argument is ID of launch,
 if omitted, it takes the latest launch.
 
-get_nasa_pict(token, count=1), this one gets random pictures from NASA archive. Arguments are: "token" - user's token
+get_nasa_pictures(token, count=1), this one gets random pictures from NASA archive. Arguments are: "token" - user's token
 for API NASA, and "count": - number of pictures for download. If omitted, "count" equal 1.
 
 get_nasa_epic(token), this one gets pictures from NASA's project EPIC. Argument is "token" - user's token
 for API NASA.
 
+All functions are in the files of same name.
 How  to start.
 Download all directories and files in the project's directory. Create in this directory subdirectory "venv", and there
 create file ".env". In this file, you must type NASA_TOKEN={your token for API NASA}
