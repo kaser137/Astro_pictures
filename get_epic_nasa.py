@@ -22,6 +22,5 @@ def get_epic_nasa(token):
 
 if __name__ == '__main__':
     dotenv.load_dotenv('venv/.env')
-    num_launch = '5eb87d47ffd86e000604b38a'
     token_user = os.getenv('NASA_TOKEN')
     get_epic_nasa(token_user)
