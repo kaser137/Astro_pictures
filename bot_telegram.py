@@ -12,3 +12,4 @@ print(updates)
 chat_id = '@Astro_photos'
 print(chat_id)
 bot.send_message(chat_id=chat_id, text="Test text")
+bot.send_document(chat_id=chat_id, document=open('images/nasaEpic/epic_1b_20230110003634.png', 'rb'))
