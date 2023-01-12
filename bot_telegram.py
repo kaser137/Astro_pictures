@@ -1,15 +1,14 @@
-import telegram
 import dotenv
 import os
+import argparse
+from service_functions import output_images_to_telegram
 
 dotenv.load_dotenv('venv/.env')
 token = os.getenv('BOT_TOKEN')
-print(token)
-bot = telegram.Bot(token=token)
-print(bot.get_me())
-updates = bot.get_updates()
-print(updates)
 chat_id = '@Astro_photos'
-print(chat_id)
-bot.send_message(chat_id=chat_id, text="Test text")
-bot.send_document(chat_id=chat_id, document=open('images/nasaEpic/epic_1b_20230110003634.png', 'rb'))
+parser = argparse.ArgumentParser('This function outputs pictures to Telegram chat with period "period" in secs, '
+                                 'if omitted, period = 4 hours ')
+parser.add_argument('period')
+parser = parser.parse_args()
+period = int(parser.period)
+output_images_to_telegram(token, chat_id, 'images', period=period)
