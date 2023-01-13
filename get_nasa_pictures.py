@@ -1,5 +1,5 @@
 import requests
-import os.path
+import os
 import dotenv
 from service_functions import grab_img
 
