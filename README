@@ -1,20 +1,45 @@
-Astro_pictures
-This project gets pictures from SpaceX and NASA.
-There are three main functions:
+# Astro_pictures
 
-fetch_spacex_last_launch(id_launch='latest'), this one gets pictures from launch of Space X. Its argument is ID of launch,
-if omitted, it takes the latest launch.
+## What is this?
 
-get_nasa_pictures(token, count=1), this one gets random pictures from NASA archive. Arguments are: "token" - user's token
-for API NASA, and "count": - number of pictures for download. If omitted, "count" equal 1.
+This project gets pictures from SpaceX and NASA, and then collected pictures publishing in telegram bot 
 
-get_nasa_epic(token), this one gets pictures from NASA's project EPIC. Argument is "token" - user's token
-for API NASA.
+## How in works?
 
-All functions are in the files of same name.
-How  to start.
-Download all directories and files in the project's directory. Create in this directory subdirectory "venv", and there
-create file ".env". In this file, you must type NASA_TOKEN={your token for API NASA}
-(it looks like: NASA_TOKEN="5jI12qp4tNJIstaHRiuWfFijgy6t4oasiq1lN8DB" (for example))
+For working with this project, you have to copy all files in the working directory at your choice.  Create in working 
+directory subdirectory "venv" and file ".env" in this subdirectory. In this file you have to write 3 lines like this:
+    NASA_TOKEN="4a9a0qp6hW3Bf5oHRiJHiFijgg6tsoasiqKU34IF"
+    BOT_TOKEN="5891540462:AAEK9XHL5ylR6r1AnN9Roj5wcTR6jZYlv98"
+    CHAT_ID="@Pinky hippo" (presented values is not correct, it's just for example)
+Where NASA_TOKEN is your token for API NASA, BOT_TOKEN is yor token for your bot in Telegram, CHAT_ID is your chat, 
+in which your telegram bot has administrator's rights.
+There are two ways to start program:
+1. Start file "main.py", it makes directory 'images' in your working directory, then downloads photos from launches of 
+   SpaceX and from NASA to the "images, and then posts random picture from "images" to Telegram (follow instructions).
+2. In this case subdirectory "images" with pictures in your working directory has to exist. 
+   In command line from working directory type: "python bot_telegram.py [period]", where "period"(number of seconds) is
+   period of publishing photos in Telegram.
+
+## Content:
+
+fetch_spacex_last_launch.py content fetch_spacex_last_launch(id_launch='latest'), this function gets pictures from 
+launch of Space X. Its argument is ID of launch, if omitted, it takes the latest launch.
+
+get_nasa_pictures.py content get_nasa_pictures(token, count=1), this function gets random pictures from NASA archive. 
+Arguments are: "token" - user's token for API NASA, and "count": - number of pictures for download. If omitted, equal 1.
+
+get_nasa_epic.py content get_nasa_epic(token), this function gets pictures from NASA's project EPIC. 
+Argument is "token" - user's token for API NASA.
+
+service_functions.py:
+1. get_ext_file(url), this functon check that URL has file with extension, and return this extension.
+2. grab_img(url, name_for_img), this functon fetches file from "URL" and save it as "name_for_img".
+3. adjust_size_image(image), this function check size of "image", and if it more than 20MB, reduce size.
+4. output_images_to_telegram(token, chat_id, dir_pictures, period=14400), this function create list of pictures from
+directory "dir_pictures", and periodical publishes random photo from this list.
+"token" is your token for telegram bot, "chat_id" is id for your chat where yor bot is administrator, "period" is
+period of publishing in seconds (default value period is 14400 seconds, what is equal 4 hours) 
+
+About main.py and bot_telegram.py was said upper, in "How it works?".
 
 Код написан в образовательных целях на курсах для веб-разработчиков [dvmn.org](https://dvmn.org/).
