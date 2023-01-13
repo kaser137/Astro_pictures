@@ -1,8 +1,8 @@
 import requests
-import os.path
+import os
 import dotenv
 import datetime
-from service_functions import ext_file
+
 
 
 def get_epic_nasa(token):
@@ -13,11 +13,10 @@ def get_epic_nasa(token):
         'https://epic.gsfc.nasa.gov/archive/natural/' + datetime.datetime.fromisoformat(i['date']).strftime(
             '%Y/%m/%d/') + 'png/' + i['image'] + '.png' for i in response.json()]
     for path in images_links:
-        if ext_file(path):
-            response = requests.get(path, params={'api_key': f'{token}'})
-            response.raise_for_status()
-            with open('./images/nasaEpic/' + path.split('/')[-1], 'wb') as file:
-                file.write(response.content)
+        response = requests.get(path, params={'api_key': f'{token}'})
+        response.raise_for_status()
+        with open('./images/nasaEpic/' + path.split('/')[-1], 'wb') as file:
+            file.write(response.content)
 
 
 if __name__ == '__main__':
