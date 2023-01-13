@@ -23,7 +23,7 @@ There are two ways to start program:
 ## Content:
 
 fetch_spacex_last_launch.py content fetch_spacex_last_launch(id_launch='latest'), this function gets pictures from 
-launch of Space X. Its argument is ID of launch, if omitted, it takes the latest launch.
+launch of SpaceX. Its argument is ID of launch, if omitted, it takes the latest launch.
 
 get_nasa_pictures.py content get_nasa_pictures(token, count=1), this function gets random pictures from NASA archive. 
 Arguments are: "token" - user's token for API NASA, and "count": - number of pictures for download. If omitted, equal 1.
