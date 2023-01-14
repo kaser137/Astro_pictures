@@ -33,15 +33,20 @@ def adjust_size_image(image):
     return image
 
 
-def output_images_to_telegram(token, chat_id, dir_pictures, period=14400):
-    list_of_pictures = []
-    for root, dirs, files in os.walk(dir_pictures):
-        for name in files:
-            full_name = os.path.join(root, name)
-            adjust_size_image(full_name)
-            list_of_pictures.append(full_name)
+def output_images_to_telegram(token, chat_id, dir_pictures, period=14400, picture=None):
     bot = telegram.Bot(token=token)
-    while True:
-        random_index = random.randint(0, len(list_of_pictures) - 1)
-        bot.send_document(chat_id=chat_id, document=open(list_of_pictures[random_index], 'rb'))
-        time.sleep(period)
+    if picture is None:
+        list_of_pictures = []
+        for root, dirs, files in os.walk(dir_pictures):
+            for name in files:
+                full_name = os.path.join(root, name)
+                adjust_size_image(full_name)
+                list_of_pictures.append(full_name)
+        while True:
+            random_index = random.randint(0, len(list_of_pictures) - 1)
+            bot.send_document(chat_id=chat_id, document=open(list_of_pictures[random_index], 'rb'))
+            time.sleep(period)
+    else:
+        bot.send_document(chat_id=chat_id, document=open(picture, 'rb'))
+
+
