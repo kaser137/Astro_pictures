@@ -8,9 +8,11 @@ This project gets pictures from SpaceX and NASA, and then collected pictures pub
 
 For working with this project, you have to copy all files in the working directory at your choice.  Create in working 
 directory subdirectory "venv" and file ".env" in this subdirectory. In this file you have to write 3 lines like this:
+
     ```NASA_TOKEN="4a9a0qp6hW3Bf5oHRiJHiFijgg6tsoasiqKU34IF"
        BOT_TOKEN="5891540462:AAEK9XHL5ylR6r1AnN9Roj5wcTR6jZYlv98"
        CHAT_ID="@Pinky_hippo"```
+
 (presented values is not correct, it's just for example)
 Where NASA_TOKEN is your token for API NASA, BOT_TOKEN is yor token for your bot in Telegram, CHAT_ID is your chat, 
 in which your telegram bot has administrator's rights.
