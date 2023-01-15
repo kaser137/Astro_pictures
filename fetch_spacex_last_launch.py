@@ -5,8 +5,8 @@ import argparse
 from service_functions import grab_img
 
 
-def fetch_spacex_last_launch(id_start='latest'):
-    url = f'https://api.spacexdata.com/v5/launches/{id_start}'
+def fetch_spacex_last_launch(start_id='latest'):
+    url = f'https://api.spacexdata.com/v5/launches/{start_id}'
     response = requests.get(url)
     response.raise_for_status()
     os.makedirs('./images/spaceX', exist_ok=True)
