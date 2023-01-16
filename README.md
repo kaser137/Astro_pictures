@@ -46,7 +46,7 @@ service_functions.py:
 5. publish_images_to_telegram(token, chat_id, dir_pictures, period=14400, picture=None), this function periodical 
 publishes random photo from directory "dir_picture", if "picture" omitted. In case when "picture" =  fullname of image, 
 function publish this image. "token" is your token for telegram bot, "chat_id" is id for your chat where yor bot is 
-administrator, "period" is period of publishing in seconds (default 14400 seconds = 4 hours) 
+administrator, "period" is period of publishing in seconds (default 14400 seconds = 4 hours). 
 
 About collect_pictures.py and bot_telegram.py was said upper, in "How it works?".
 
