@@ -42,11 +42,11 @@ service_functions.py:
 1. get_ext_file(url), this functon check that "URL" has file with extension, and return this extension.
 2. grab_img(url, name_for_img), this functon fetches file from "URL" and save it as "name_for_img".
 3. adjust_size_image(image), this function check size of "image", and if it more than 20MB, reduce size.
-4. output_images_to_telegram(token, chat_id, dir_pictures, period=14400, picture=None), this function create list
-of pictures from directory "dir_pictures", and periodical publishes random photo from this list, if "picture" omitted.
-In case when "picture" =  fullname of image, function publish this image. "token" is your token for telegram bot,
-"chat_id" is id for your chat where yor bot is administrator, "period" is period of publishing in seconds
-(default 14400 seconds = 4 hours) 
+4. collect_img_from_dir(dir_pictures), this function takes images from pointed directory, and returns list of images.
+5. publish_images_to_telegram(token, chat_id, dir_pictures, period=14400, picture=None), this function periodical 
+publishes random photo from directory "dir_picture", if "picture" omitted. In case when "picture" =  fullname of image, 
+function publish this image. "token" is your token for telegram bot, "chat_id" is id for your chat where yor bot is 
+administrator, "period" is period of publishing in seconds (default 14400 seconds = 4 hours) 
 
 About collect_pictures.py and bot_telegram.py was said upper, in "How it works?".
 
