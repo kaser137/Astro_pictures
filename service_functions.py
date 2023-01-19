@@ -6,22 +6,34 @@ import random
 from PIL import Image
 
 
+def api_request(url, payload=None, attempt_timeout=10):
+    flag = True
+    while flag:
+        try:
+            response = requests.get(url, params=payload)
+            response.raise_for_status()
+            flag = False
+            return response
+        except requests.exceptions.ConnectionError or requests.exceptions.Timeout:
+            print(f'connection failed, next attempt in {attempt_timeout} seconds')
+            time.sleep(attempt_timeout)
+
+
 def grab_img(url, name_for_img, payload=None):
-    response = requests.get(url, params=payload)
-    response.raise_for_status()
+    response = api_request(url, payload)
     with open(name_for_img, 'wb') as file:
         file.write(response.content)
 
 
-def adjust_size_image(image):
-    size_image = os.path.getsize(image)
+def adjust_size_image(fullpath):
+    size_image = os.path.getsize(fullpath)
     if size_image >= 20000000:
         ratio_size = 20000000 / size_image
-        with Image.open(image) as image_pil:
+        with Image.open(fullpath) as image_pil:
             width, height = image_pil.size
             image_pil.thumbnail((int(width * ratio_size), int(height * ratio_size)))
-            image_pil.save(image)
-    return image
+            image_pil.save(fullpath)
+    return fullpath
 
 
 def collect_img_from_dir(dir_pictures):
@@ -34,15 +46,25 @@ def collect_img_from_dir(dir_pictures):
     return list_of_pictures
 
 
-def publish_images_to_telegram(token, chat_id, dir_pictures, period=14400, picture=None):
+def send_document(token, chat_id, document):
     bot = telegram.Bot(token=token)
-    if picture is None:
-        list_of_pictures = collect_img_from_dir(dir_pictures)
-        while True:
-            random_index = random.randint(0, len(list_of_pictures) - 1)
-            with open(list_of_pictures[random_index], 'rb') as document:
-                bot.send_document(chat_id=chat_id, document=document)
-            time.sleep(period)
-    else:
-        with open(picture, 'rb') as document:
-            bot.send_document(chat_id=chat_id, document=document)
+    with open(document, 'rb') as document:
+        bot.send_document(chat_id=chat_id, document=document)
+
+
+def publish_images_to_telegram(token, chat_id, dir_pictures, period=14400, picture=None, attempt_timeout=20):
+    flag = True
+    while flag:
+        try:
+            if picture:
+                send_document(token, chat_id, picture)
+            else:
+                list_of_pictures = collect_img_from_dir(dir_pictures)
+                while True:
+                    random_index = random.randint(0, len(list_of_pictures) - 1)
+                    send_document(token, chat_id, list_of_pictures[random_index])
+                    time.sleep(period)
+            flag = False
+        except telegram.error.NetworkError:
+            print(f'connection failed, next attempt in {attempt_timeout} seconds')
+            time.sleep(attempt_timeout)
