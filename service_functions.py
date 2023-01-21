@@ -52,19 +52,13 @@ def send_document(token, chat_id, document):
         bot.send_document(chat_id=chat_id, document=document)
 
 
-def publish_images_to_telegram(token, chat_id, dir_pictures, period=14400, picture=None, attempt_timeout=20):
-    flag = True
-    while flag:
+def publish_images_to_telegram(token, chat_id, dir_pictures, period=14400, attempt_timeout=20):
+    while True:
         try:
-            if picture:
-                send_document(token, chat_id, picture)
-            else:
-                list_of_pictures = collect_img_from_dir(dir_pictures)
-                while True:
-                    random_index = random.randint(0, len(list_of_pictures) - 1)
-                    send_document(token, chat_id, list_of_pictures[random_index])
-                    time.sleep(period)
-            flag = False
+            list_of_pictures = collect_img_from_dir(dir_pictures)
+            random_index = random.randint(0, len(list_of_pictures) - 1)
+            send_document(token, chat_id, list_of_pictures[random_index])
+            time.sleep(period)
         except telegram.error.NetworkError:
             print(f'connection failed, next attempt in {attempt_timeout} seconds')
             time.sleep(attempt_timeout)
