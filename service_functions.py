@@ -37,13 +37,13 @@ def adjust_size_image(fullpath):
 
 
 def collect_img_from_dir(dir_pictures):
-    list_of_pictures = []
+    image_path_list = []
     for root, dirs, files in os.walk(dir_pictures):
         for name in files:
             full_name = os.path.join(root, name)
             adjust_size_image(full_name)
-            list_of_pictures.append(full_name)
-    return list_of_pictures
+            image_path_list.append(full_name)
+    return image_path_list
 
 
 def send_document(token, chat_id, document):
@@ -55,9 +55,9 @@ def send_document(token, chat_id, document):
 def publish_images_to_telegram(token, chat_id, dir_pictures, period=14400, attempt_timeout=20):
     while True:
         try:
-            list_of_pictures = collect_img_from_dir(dir_pictures)
-            random_index = random.randint(0, len(list_of_pictures) - 1)
-            send_document(token, chat_id, list_of_pictures[random_index])
+            image_path_list = collect_img_from_dir(dir_pictures)
+            random_index = random.randint(0, len(image_path_list) - 1)
+            send_document(token, chat_id, image_path_list[random_index])
             time.sleep(period)
         except telegram.error.NetworkError:
             print(f'connection failed, next attempt in {attempt_timeout} seconds')
