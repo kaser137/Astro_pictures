@@ -56,8 +56,7 @@ def publish_images_to_telegram(token, chat_id, dir_pictures, period=14400, attem
     while True:
         try:
             image_path_list = collect_img_from_dir(dir_pictures)
-            random_index = random.randint(0, len(image_path_list) - 1)
-            send_document(token, chat_id, image_path_list[random_index])
+            send_document(token, chat_id, random.choice(image_path_list))
             time.sleep(period)
         except telegram.error.NetworkError:
             print(f'connection failed, next attempt in {attempt_timeout} seconds')
