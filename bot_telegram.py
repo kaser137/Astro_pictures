@@ -2,7 +2,7 @@ import os
 import argparse
 import dotenv
 from pathlib import Path
-from service_functions import publish_images_to_telegram
+from service_functions import send_document, publish_images_to_telegram
 
 
 def main():
@@ -17,7 +17,10 @@ def main():
     period = parser.period
     picture = parser.image
     timeout = parser.timeout
-    publish_images_to_telegram(bot_token, chat_id, 'images', period=period, picture=picture, attempt_timeout=timeout)
+    if picture:
+        send_document(bot_token, chat_id, picture)
+    else:
+        publish_images_to_telegram(bot_token, chat_id, 'images', period=period, attempt_timeout=timeout)
 
 
 if __name__ == '__main__':
