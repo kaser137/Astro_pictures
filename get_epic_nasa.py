@@ -2,11 +2,11 @@ import os
 import datetime
 import dotenv
 from pathlib import Path
-from service_functions import grab_img, api_request
+from service_functions import grab_img, request_api
 
 
 def get_epic_nasa(token):
-    response = api_request('https://epic.gsfc.nasa.gov/api/natural', payload={'api_key': f'{token}'})
+    response = request_api('https://epic.gsfc.nasa.gov/api/natural', payload={'api_key': f'{token}'})
     os.makedirs(Path('images', 'nasaEpic'), exist_ok=True)
     images_links = [os.path.join(
         'https://epic.gsfc.nasa.gov/archive/natural/', datetime.datetime.fromisoformat(api_answer['date']).strftime(

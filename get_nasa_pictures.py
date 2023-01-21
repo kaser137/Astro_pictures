@@ -1,11 +1,11 @@
 import os
 import dotenv
 from pathlib import Path
-from service_functions import grab_img, api_request
+from service_functions import grab_img, request_api
 
 
 def get_nasa_pictures(token, count=1):
-    response = api_request('https://api.nasa.gov/planetary/apod', payload={'api_key': f'{token}', 'count': f'{count}'})
+    response = request_api('https://api.nasa.gov/planetary/apod', payload={'api_key': f'{token}', 'count': f'{count}'})
     os.makedirs(Path('images', 'nasa'), exist_ok=True)
     images_links = [api_answer['url'] for api_answer in response.json() if api_answer['media_type'] == 'image']
     for path in images_links:

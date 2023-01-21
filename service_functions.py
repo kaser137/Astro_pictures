@@ -6,7 +6,7 @@ import random
 from PIL import Image
 
 
-def api_request(url, payload=None, attempt_timeout=10):
+def request_api(url, payload=None, attempt_timeout=10):
     flag = True
     while flag:
         try:
@@ -20,7 +20,7 @@ def api_request(url, payload=None, attempt_timeout=10):
 
 
 def grab_img(url, name_for_img, payload=None):
-    response = api_request(url, payload)
+    response = request_api(url, payload)
     with open(name_for_img, 'wb') as file:
         file.write(response.content)
 

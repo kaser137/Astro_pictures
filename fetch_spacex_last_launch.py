@@ -1,12 +1,12 @@
 import os.path
 import argparse
 from pathlib import Path
-from service_functions import grab_img, api_request
+from service_functions import grab_img, request_api
 
 
 def fetch_spacex_last_launch(start_id='latest'):
     url = f'https://api.spacexdata.com/v5/launches/{start_id}'
-    response = api_request(url)
+    response = request_api(url)
     os.makedirs(Path('images', 'spaceX'), exist_ok=True)
     images_links = response.json()['links']['flickr']['original']
     for path in images_links:
