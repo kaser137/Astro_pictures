@@ -17,7 +17,7 @@ def get_epic_nasa(token):
 
 def main():
     dotenv.load_dotenv(Path('venv', '.env'))
-    nasa_token = os.environ.get('NASA_TOKEN')
+    nasa_token = os.environ['NASA_TOKEN']
     get_epic_nasa(nasa_token)
 
 

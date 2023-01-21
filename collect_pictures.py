@@ -8,7 +8,7 @@ from get_epic_nasa import get_epic_nasa
 
 def main():
     dotenv.load_dotenv(Path('venv', '.env'))
-    nasa_token = os.environ.get('NASA_TOKEN')
+    nasa_token = os.environ['NASA_TOKEN']
     example_id = '5eb87d47ffd86e000604b38a'
     count = input('Input number of pictures from NASA, what should you get. For 1 picture, press Enter:')
     fetch_spacex_last_launch(example_id)

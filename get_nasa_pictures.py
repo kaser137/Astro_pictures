@@ -14,7 +14,7 @@ def get_nasa_pictures(token, count=1):
 
 def main():
     dotenv.load_dotenv(Path('venv', '.env'))
-    nasa_token = os.environ.get('NASA_TOKEN')
+    nasa_token = os.environ['NASA_TOKEN']
     get_nasa_pictures(nasa_token, 3)
 
 
